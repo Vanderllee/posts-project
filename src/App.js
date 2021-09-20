@@ -1,11 +1,15 @@
-import Home from "./screens/home/Home";
+/** import Home from "./screens/home/Home"; */
+/** import Single from "./screens/single/Single"; */
 import TopBar from "./components/topbar/TopBar";
+import Write from "./screens/write/Write";
 
 function App() {
   return (
     <>
       <TopBar />
-      <Home />
+      <Write />
+      {/** <Single /> */}
+      {/** <Home /> */}
     </>
   );
 }
