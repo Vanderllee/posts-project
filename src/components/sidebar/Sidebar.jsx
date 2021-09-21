@@ -33,7 +33,7 @@ export default function Sidebar() {
 
             <div className="sidebarItem">
                 <span className="sidebarTitle">
-                    FOLLOW US
+                    SIGA-NOS NAS REDES SOCIAIS
                 </span>
                 <div className="sidebarSocial">
                 <i className=" sidebarIcon fab fa-facebook-square"></i>
