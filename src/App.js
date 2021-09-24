@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import Login from "./screens/login/Login"
@@ -16,6 +15,9 @@ import TopBar from "./components/topbar/TopBar"
 
 
 function App() {
+
+    const user = false
+
   return (
     <Router>
       <TopBar />
@@ -25,19 +27,19 @@ function App() {
           </Route>
 
           <Route path="/cadastro">
-            <Register />
+            { user ? <Home /> : <Register /> }
           </Route>
 
           <Route path="/write">
-            <Write /> 
+           { user ? <Write />  : <Register />  }  
           </Route>
 
           <Route path="/login">
-            <Login />
+           { user ? <Home /> : <Login /> } 
           </Route>
 
           <Route path="/settings">
-            <Settings />
+          { user ? <Settings /> : <Register /> }
           </Route>
 
           <Route path="/post/:postId">

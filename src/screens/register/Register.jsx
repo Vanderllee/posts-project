@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom'
 import './register.css'
 
 export default function Register() {
@@ -22,7 +23,8 @@ export default function Register() {
             </form>
 
             <button className="registerLoginButton">
-                Login
+                
+            <Link  className="link" to="/login">Login</Link>
             </button>
         </div>
     )
