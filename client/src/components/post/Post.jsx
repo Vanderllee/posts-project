@@ -1,48 +1,51 @@
 import './post.css'
 
-export default function Post () {
+import { Link } from 'react-router-dom'
+
+export default function Post ({ post}) {
     return (
+
         <div className="post">
-            <img className="postImg" src="https://github.com/vanderllee.png" alt="Minha imagem"/>
+            {
+                post.photo && (
+                    <img 
+                        className="postImg" 
+                        src={post.photo} 
+                        alt="Minha imagem"
+                    />
+                )
+            }
 
             <div className="postInfo">
                 <div className="postCats">
-                    <span className="postCat">Music</span>
-                    <span className="postCat">Life</span>
+                    
+                    {
+                        post.categories.map((c) => (
+                            <span className="postCat">{ c.name }</span>
+                        ))
+                    }
+                    
                 </div>
 
-                <span className="postTitle">
-                    titulo do post
-                </span>
+                <Link to={`/post/${post._id}`} className="link">
+                
+                    <span className="postTitle">
+                        { post.title }
+                    </span>
+
+                </Link>
+                
                 <hr />
                 <span className="postDate">
-                    1 hour ago
+                { new Date(post.createdAt).toDateString() }
                 </span>
             </div>
 
             <p className="postDesc">
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
 
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
 
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
-                Descrição do post...
+               { post.desc }
+               
             </p>
         </div>
     )
