@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images')
+        cb(null, "images")
     }, 
     
     filename: (req, file, cb) =>  {
@@ -30,7 +30,8 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-app.post('/api/upload', upload.single('file'), (req, res) => {
+
+app.post('/api/upload', upload.single("file"), (req, res) => {
     res.status(200).json('Arquivo inserido!')
 })
 
