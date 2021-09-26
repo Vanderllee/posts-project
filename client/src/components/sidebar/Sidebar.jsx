@@ -1,6 +1,26 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './sidebar.css'
 
 export default function Sidebar() {
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+
+        const getCategories = async () => {
+            const response = await axios.get('/categories')
+
+            setCategories(response.data)
+
+
+        }
+
+        getCategories()
+
+    }, [])
+
     return (
         <div className="sidebar">
             <div className="sidebarItem">
@@ -18,17 +38,21 @@ export default function Sidebar() {
             </div>
 
             <div className="sidebarItem">
-               <span className="sidebarTitle">
+                <span className="sidebarTitle">
                     CATEGORIAS
-               </span>
-               <ul className="sidebarList">
-                   <li className="sidebarListItem">Life</li>
-                   <li className="sidebarListItem">Music</li>
-                   <li className="sidebarListItem">Style</li>
-                   <li className="sidebarListItem">Sports</li>
-                   <li className="sidebarListItem">Tec</li>
-                   <li className="sidebarListItem">Cinema</li>
-               </ul>
+                </span>
+                <ul className="sidebarList">
+                    {categories.map((cat) => (
+
+                        <Link to={`/?cat=${cat.name}`} className="link">
+                            
+                            <li className="sidebarListItem">{cat.name}</li>
+
+                        </Link>
+
+                    ))}
+
+                </ul>
             </div>
 
             <div className="sidebarItem">
@@ -36,10 +60,10 @@ export default function Sidebar() {
                     SIGA-NOS NAS REDES SOCIAIS
                 </span>
                 <div className="sidebarSocial">
-                <i className=" sidebarIcon fab fa-facebook-square"></i>
-                <i className=" sidebarIcon fab fa-twitter-square"></i>
-                <i className=" sidebarIcon fab fa-pinterest-square"></i>
-                <i className=" sidebarIcon fab fa-instagram-square"></i>
+                    <i className=" sidebarIcon fab fa-facebook-square"></i>
+                    <i className=" sidebarIcon fab fa-twitter-square"></i>
+                    <i className=" sidebarIcon fab fa-pinterest-square"></i>
+                    <i className=" sidebarIcon fab fa-instagram-square"></i>
                 </div>
             </div>
         </div>
