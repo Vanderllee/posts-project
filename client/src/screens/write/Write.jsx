@@ -1,6 +1,46 @@
+import { useContext, useState } from 'react'
 import './write.css'
+import axios from 'axios'
+
+import { Context } from '../../context/Context';
 
 export default function Write() {
+
+    const [ title, setTitle ] = useState("");
+    const [ desc, setDesc ] = useState("");
+    const [ file, setFile ] = useState(null);
+
+    const { user }=useContext( Context )
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const newPost = {
+            username: user.username,
+            title,
+            desc
+        }
+
+        if(file) {
+            const data = FormData();
+
+            const filename = Date.now() + file.name;
+
+            data.append("name", filename)
+            data.append("file", file)
+
+            newPost.photo = filename
+
+            try {
+                await axios.post('/upload')
+            } catch(err) {
+                //
+            }
+        }
+
+        axios.post("/posts")
+    }
+
     return (
         <div className="write">
             <img 
@@ -8,7 +48,7 @@ export default function Write() {
                 alt="Minha foto" 
                 className="writeImg"
                 />
-            <form className="writeForm">
+            <form className="writeForm" onSubmit={ handleSubmit }>
                 <div className="writeFormGroup">
                     <label htmlFor="fileInput">
                     <i className=" writeIcon fas fa-plus"></i>
@@ -32,7 +72,7 @@ export default function Write() {
                     </textarea>
                 </div>
 
-                <button className="writeSubmit">
+                <button type="submit" className="writeSubmit">
                     Enviar
                 </button>
             </form>
