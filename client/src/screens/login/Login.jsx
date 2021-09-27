@@ -12,7 +12,7 @@ export default function Login() {
                 <input type="text" className="loginInput" placeholder="digite o email..."/>
 
                 <label>Senha</label>
-                <input type="text" className="loginInput" placeholder="digite a senha..."/>
+                <input type="password" className="loginInput" placeholder="digite a senha..."/>
 
                 <button className="loginButton">
                     Entrar
