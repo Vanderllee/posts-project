@@ -10,6 +10,7 @@ export default function Singlepost() {
     const path = location.pathname.split('/')[2]
     const [post, setPost] = useState({})
 
+    const PF="http://localhost:5000/images/"
  
 
 
@@ -28,7 +29,7 @@ export default function Singlepost() {
             <div className="singlePostWraper">
                 {
                     post.photo && (
-                        <img src={post.photo} 
+                        <img src={ PF + post.photo} 
                             alt="Minha imagem" 
                             className="singlePostImg" 
                         />

@@ -22,43 +22,61 @@ export default function Write() {
         }
 
         if(file) {
-            const data = FormData();
+            const data = new FormData();
 
             const filename = Date.now() + file.name;
 
             data.append("name", filename)
             data.append("file", file)
-
             newPost.photo = filename
 
             try {
-                await axios.post('/upload')
+                await axios.post('/upload', data)
             } catch(err) {
                 //
             }
         }
 
-        axios.post("/posts")
+        try {
+
+          const response= await axios.post("/posts", newPost)
+
+          window.location.replace('/post/' + response.data._id)
+
+        } catch(err) {
+            //
+        }
     }
 
     return (
         <div className="write">
-            <img 
-                src="https://github.com/vanderllee.png" 
-                alt="Minha foto" 
+
+            {file && <img 
+                src={ URL.createObjectURL(file) }
+                alt="" 
                 className="writeImg"
-                />
+            /> }
+
+
             <form className="writeForm" onSubmit={ handleSubmit }>
                 <div className="writeFormGroup">
                     <label htmlFor="fileInput">
                     <i className=" writeIcon fas fa-plus"></i>
                     </label>
-                    <input type="file" id="fileInput" style={{display: 'none'}}/>
+
+                    <input 
+                        type="file" 
+                        id="fileInput" 
+                        style={{display: 'none'}}
+                        onChange={(e) => setFile(e.target.files[0])}
+                    />
+                    
                     <input 
                         type="text" 
                         placeholder="Title" 
                         className="writeInput"
                         autoFocus={true}
+                        onChange={ (e) => setTitle(e.target.value) }
                     />
                 </div>
 
@@ -67,6 +85,7 @@ export default function Write() {
                     placeholder="Digite seu texto..."
                     type="text"
                     className="writeInput writeText"
+                    onChange={ (e) => setDesc(e.target.value) }
                     >
 
                     </textarea>
