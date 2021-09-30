@@ -1,8 +1,62 @@
+import { useContext, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
+import { Context } from '../../context/Context'
+import axios from 'axios'
 
 import './settings.css'
 
 export default function Settings() {
+
+    const { user, dispatch } = useContext( Context )
+    const PF = 'http://localhost:5000/images/'
+
+    const [ file, setFile ] = useState(null);
+    const [ username, setUsername ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ sucess, setSucess ] = useState(false);
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        dispatch({ type: "UPDATE_START" })
+
+        const updatedUser = {
+            userId: user._id,
+            username,
+            email,
+            password
+        }
+
+        if(file) {
+            const data = new FormData();
+
+            const filename = Date.now() + file.name;
+
+            data.append("name", filename)
+            data.append("file", file)
+            updatedUser.profilePic = filename
+
+            try {
+                await axios.post('/upload', data)
+            } catch(err) {
+                //
+            }
+        }
+        
+        try {
+            
+             const response = await axios.put(`/users/${user._id}`, updatedUser)
+            setSucess(true)
+            dispatch({ type: "UPDATE_SUCCESS", payload: response.data })
+
+        } catch(err) {
+            dispatch({ type: 'UPDATE_FAILURE' })
+        }
+    }
+
+
     return (
         <div className="settings">
             <div className="settingsWrapper">
@@ -15,11 +69,14 @@ export default function Settings() {
                     </span>
                 </div>
 
-                <form className="settingsForm">
+                <form 
+                    className="settingsForm"
+                    onSubmit={ handleSubmit }
+                >
                     <label>Foto</label>
                     <div className="settingsPP">
                         <img 
-                            src="https://github.com/vanderllee.png" 
+                            src={file ? URL.createObjectURL(file) : PF+user.profilePic} 
                             alt="Minha foto" 
                         />
 
@@ -27,21 +84,47 @@ export default function Settings() {
                             <i className=" settingsPPIcon far fa-user-circle"></i>
                         </label>
 
-                        <input type="file" id="fileInput" style={{display: 'none'}}/>
+                        <input 
+                            type="file" 
+                            id="fileInput"
+                            onChange={(e) => setFile(e.target.files[0])}
+                            style={{display: 'none'}}
+                        />
                     </div>
 
                     <label>Usuário</label>
-                    <input type="text" placeholder="digite..."/>
+                    <input 
+                        type="text" 
+                        placeholder={ user.username }
+                        onChange={(e) => setUsername(e.target.value)} 
+                    />
 
                     <label>Email</label>
-                    <input type="email" placeholder="digite..."/>
+                    <input 
+                        type="email" 
+                        placeholder={ user.email } 
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
                     <label>Senha</label>
-                    <input type="password" placeholder="digite..."/>
+                    <input 
+                        type="password" 
+                        placeholder="digite..."
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                    <button className="settingsSubmit">
+                    <button 
+                        className="settingsSubmit"
+                        type="submit"
+                    >
                         Atualizar
                     </button>
+
+                    {
+                        sucess && ( <span 
+                            style={{color: 'green', textAlign: 'center', marginTop: '20px'}}
+                            > Usuário atualizado com sucesso! </span> )
+                    }
                 </form>
 
                 <Sidebar />
