@@ -18,10 +18,23 @@ export default function TopBar() {
     return (
         <div className="top">
             <div className="topLeft">
-                <i className=" topIcon fab fa-facebook-square"></i>
+                <a 
+                    href="https://facebook.com/pages/E.M.E.F%20Engenheiro%20Jos%C3%A9%20Amadei/114176958598965/" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                >
+                    <i className=" topIcon fab fa-facebook-square"></i>
+                </a>
+                
                 <i className=" topIcon fab fa-twitter-square"></i>
                 <i className=" topIcon fab fa-pinterest-square"></i>
-                <i className=" topIcon fab fa-instagram-square"></i>
+                <a 
+                    href="https://instagram.com/vanderllee/" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                >
+                    <i className=" topIcon fab fa-instagram-square"></i>
+                </a>
             </div>
             <div className="topCenter">
                 <ul className="topList">
@@ -43,7 +56,7 @@ export default function TopBar() {
                     </li>
                     <li className="topListItem">
                         <Link className="link" to="/write">
-                            WRITE
+                            POST
                         </Link>
                         </li>
                     <li 

@@ -64,9 +64,7 @@ export default function Settings() {
                     <span className="settingsUpdateTitle">
                         Atualize sua conta
                     </span>
-                    <span className="settingsDeleteTitle">
-                        Delete sua conta
-                    </span>
+                
                 </div>
 
                 <form 

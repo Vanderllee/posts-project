@@ -2,6 +2,9 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
+import  imagem  from '../../assets/turma9A.jpeg'
+
+
 
 export default function Sidebar() {
 
@@ -28,7 +31,7 @@ export default function Sidebar() {
                     SOBRE NÓS
                 </span>
 
-                <img src="https://github.com/vanderllee.png" alt="Minha imagem" />
+                <img src={ imagem } alt="" />
 
                 <p>
                     Nós somos alunos do 9A do ensino fundamental,
@@ -57,10 +60,20 @@ export default function Sidebar() {
 
             <div className="sidebarItem">
                 <span className="sidebarTitle">
-                    SIGA-NOS NAS REDES SOCIAIS
+                    SIGA A GENTE 
                 </span>
                 <div className="sidebarSocial">
+
+                <a 
+                    href="https://facebook.com/pages/E.M.E.F%20Engenheiro%20Jos%C3%A9%20Amadei/114176958598965/" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                >
+                    
                     <i className=" sidebarIcon fab fa-facebook-square"></i>
+                </a>
+
+
                     <i className=" sidebarIcon fab fa-twitter-square"></i>
                     <i className=" sidebarIcon fab fa-pinterest-square"></i>
                     <i className=" sidebarIcon fab fa-instagram-square"></i>

@@ -43,7 +43,7 @@ export default function Login() {
             <span className="loginTitle">Login</span>
 
             <form onSubmit={ handleSubmit } className="loginForm">
-                <label>Username</label>
+                <label>Nome</label>
                 <input 
                     type="text" 
                     className="loginInput" 
