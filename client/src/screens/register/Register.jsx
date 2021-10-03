@@ -10,26 +10,38 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [err, setErr] = useState(false);
+    const [error, setError ] = useState('')
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErr(false)
        
-        try {
+        if(!username || (typeof username === 'string' && !username.trim())) {
+            setError('Cadastro inválido!')
+        } else if(!email || !email.includes('@') ) {
+            setError('Cadastro inválido!')
+        } else if(!password || (Array.isArray(password) && password.length <= 3) || (parseInt(password) <= 3) ) {
+            setError('Cadastro inválido!')
+        } else {
 
-            const response = await axios.post('/auth/register', {
-                username,
-                email,
-                password
-            })
-
-            response.data && window.location.replace('/login')
-
-        }catch (err) {
-            setErr(true)
-            
+            try {
+        
+                const response = await axios.post('/auth/register', {
+                    username,
+                    email,
+                    password
+                })
+    
+                response.data && window.location.replace('/login')
+    
+            }catch (err) {
+                setErr(true)
+                
+            }
         }
+
+
 
     }
 
@@ -42,16 +54,17 @@ export default function Register() {
                 <input 
                     
                     type="text" 
-                    className="registerInput" 
+                    className={error? 'inputErr':"registerInput " } 
                     placeholder="digite o nome..."
                     onChange={ e => setUsername(e.target.value) }
+                    
                     />
                     
 
                 <label>Email</label>
                 <input 
                     type="text" 
-                    className="registerInput" 
+                    className={error? 'inputErr':"registerInput " } 
                     placeholder="digite o email..."
                     onChange={ e => setEmail(e.target.value) }
                     />
@@ -59,10 +72,15 @@ export default function Register() {
                 <label>Senha</label>
                 <input 
                     type="password" 
-                    className="registerInput" 
+                    className={error? 'inputErr':"registerInput " }  
                     placeholder="digite a senha..."
                     onChange={ e => setPassword(e.target.value) }
                     />
+                {
+                  error &&  (<span className="inputError">
+                      { error }
+                  </span>)
+                }
 
                 <button className="registerButton">
                     Cadastrar
