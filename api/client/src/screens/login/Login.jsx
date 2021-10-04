@@ -7,6 +7,8 @@ import { Context } from '../../context/Context';
 
 import Loader from "react-loader-spinner";
 
+import { axiosInstance } from '../../utils';
+
 
 export default function Login() {
 
@@ -34,7 +36,7 @@ export default function Login() {
 
             try {
                 
-                const response = await axios.post('/auth/login', {
+                const response = await axiosInstance.post('/auth/login', {
                     username: userRef.current.value,
                     password: passwordRef.current.value
                     

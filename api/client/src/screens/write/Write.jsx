@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import './write.css'
-import axios from 'axios'
+import { axiosInstance } from '../../utils';
 
 import { Context } from '../../context/Context';
 
@@ -31,7 +31,7 @@ export default function Write() {
             newPost.photo = filename
 
             try {
-                await axios.post('/upload', data)
+                await axiosInstance.post('/upload', data)
             } catch(err) {
                 //
             }
@@ -39,7 +39,7 @@ export default function Write() {
 
         try {
 
-          const response= await axios.post("/posts", newPost)
+          const response= await axiosInstance.post("/posts", newPost)
 
           window.location.replace('/post/' + response.data._id)
 

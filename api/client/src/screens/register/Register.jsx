@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './register.css'
 import Loader from "react-loader-spinner";
-import axios from 'axios'
+import { axiosInstance } from '../../utils';
 
 export default function Register() {
 
@@ -33,7 +33,7 @@ export default function Register() {
 
             try {
         
-                const response = await axios.post('/auth/register', {
+                const response = await axiosInstance.post('/auth/register', {
                     username,
                     email,
                     password

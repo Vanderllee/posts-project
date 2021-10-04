@@ -1,9 +1,9 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
 import  imagem  from '../../assets/turma9A.jpeg'
 
+import { axiosInstance } from '../../utils';
 
 
 export default function Sidebar() {
@@ -13,7 +13,7 @@ export default function Sidebar() {
     useEffect(() => {
 
         const getCategories = async () => {
-            const response = await axios.get('/categories')
+            const response = await axiosInstance.get('/categories')
 
             setCategories(response.data)
 
