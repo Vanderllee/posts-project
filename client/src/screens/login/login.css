@@ -67,3 +67,19 @@
     border: none;
     border:2px solid red;
 }
+
+.example {
+    margin: 20px 0;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+
+  .loader {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }

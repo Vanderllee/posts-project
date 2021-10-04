@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './register.css'
-
+import Loader from "react-loader-spinner";
 import axios from 'axios'
 
 export default function Register() {
+
+    const [loading, setLoading] = useState(false);
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -15,13 +17,17 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         setErr(false)
        
         if(!username || (typeof username === 'string' && !username.trim())) {
+            setLoading(false)
             setError('Cadastro inválido!')
         } else if(!email || !email.includes('@') ) {
+            setLoading(false)
             setError('Cadastro inválido!')
         } else if(!password || (Array.isArray(password) && password.length <= 3) || (parseInt(password) <= 3) ) {
+            setLoading(false)
             setError('Cadastro inválido!')
         } else {
 
@@ -32,10 +38,11 @@ export default function Register() {
                     email,
                     password
                 })
-    
+                
                 response.data && window.location.replace('/login')
-    
+                setLoading(false)
             }catch (err) {
+                setLoading(false)
                 setErr(true)
                 
             }
@@ -46,7 +53,17 @@ export default function Register() {
     }
 
     return(
-        <div className="register">
+        loading 
+        ? (<div className="loader">
+            <Loader 
+            type="ThreeDots"
+            color="#FF0075"
+            height={220}
+            width={220}
+            timeout={4000} 
+            />
+        </div>)
+        : <div className="register">
             <span className="registerTitle">Cadastrar</span>
 
             <form onSubmit={ handleSubmit } className="registerForm">
